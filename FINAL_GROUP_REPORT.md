@@ -114,17 +114,17 @@ We implemented six distinct machine learning algorithms covering all fundamental
 - **Objective:** Construct white-box rule-based trees through recursive Gini impurity minimization:
   $$G(m) = 1 - \sum_{k=0}^1 p_{m,k}^2$$
 - **Varieties Evaluated:**
-  - *Variety A:* Shallow tree ($d = 4, \text{min\_samples\_split} = 20$).
-  - *Variety B:* Tuned pruned tree ($d = 8, \text{min\_samples\_split} = 10$).
-  - *Variety C:* Deep unpruned tree ($d = 16, \text{min\_samples\_split} = 2$).
+  - *Variety A:* Shallow tree (`max_depth=4`, `min_samples_split=20`).
+  - *Variety B:* Tuned pruned tree (`max_depth=8`, `min_samples_split=10`).
+  - *Variety C:* Deep unpruned tree (`max_depth=16`, `min_samples_split=2`).
 - **Notebook:** [`Divisekara_Decision_Tree.ipynb`](notebooks/Divisekara_Decision_Tree.ipynb)
 
 ### 4.3 Member 3 (Deshabhi R. G. S): Random Forest Classifier
 - **Objective:** Eliminate tree variance through Bootstrap Aggregation (Bagging) and random feature subspace splitting.
 - **Varieties Evaluated:**
-  - *Variety A:* Shallow ensemble ($n = 50, d = 6, \text{min\_samples\_split} = 20$).
-  - *Variety B:* Tuned ensemble ($n = 100, d = 12, \text{min\_samples\_split} = 5$).
-  - *Variety C:* Deep high-capacity ensemble ($n = 200, d = 20, \text{min\_samples\_split} = 2$).
+  - *Variety A:* Shallow ensemble (`n_estimators=50`, `max_depth=6`, `min_samples_split=20`).
+  - *Variety B:* Tuned ensemble (`n_estimators=100`, `max_depth=12`, `min_samples_split=5`).
+  - *Variety C:* Deep high-capacity ensemble (`n_estimators=200`, `max_depth=20`, `min_samples_split=2`).
 - **Notebook:** [`Deshabhi_Random_Forest.ipynb`](notebooks/Deshabhi_Random_Forest.ipynb)
 
 ### 4.4 Member 4 (Amadini G. G. A): Support Vector Machine (SVM)
