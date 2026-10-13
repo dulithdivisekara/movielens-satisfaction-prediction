@@ -1,4 +1,4 @@
-# 🎬 MovieLens 32M: Comparative ML Classifier Benchmark
+# 🎬 MovieLens Comparative ML Classifier Benchmark
 ### Systematic Evaluation of 6 Machine Learning Paradigms for User Movie Satisfaction Prediction
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
