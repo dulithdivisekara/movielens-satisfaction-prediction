@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this benchmark or implementation in your research or project, please cite it as below."
+authors:
+  - family-names: "Divisekara"
+    given-names: "Dulith"
+    affiliation: "Sri Lanka Institute of Information Technology"
+title: "Comparative Evaluation of 6 Machine Learning Classifiers for User Movie Satisfaction Prediction"
+version: 1.0.0
+date-released: 2026-10-13
+url: "https://github.com/dulithdivisekara/movielens-satisfaction-prediction"
+keywords:
+  - machine-learning
+  - movielens-32m
+  - recommender-systems
+  - binary-classification
+  - model-evaluation
+  - scikit-learn
