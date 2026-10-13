@@ -1,22 +1,24 @@
-# IT2011 - Artificial Intelligence and Machine Learning
-## Final Project Technical Report: Group 08
+# 📄 Technical Research Report
+## Comparative Design, Implementation, and Empirical Evaluation of 6 Machine Learning Classifiers for User Movie Satisfaction Prediction on MovieLens 32M
+
+> **Module:** IT2011 - Artificial Intelligence and Machine Learning  
+> **Faculty:** Faculty of Computing, Sri Lanka Institute of Information Technology (SLIIT)  
+> **Benchmark Dataset:** MovieLens 32M (`ml-32m`)  
+> **Validation Protocol:** 5-Fold Stratified Cross-Validation with Bessel-Corrected Unbiased Sample Variance ($s^2 < 2.5 \times 10^{-5}$)  
+> **Consolidated Synthesis:** [`notebooks/group_model_comparison.ipynb`](notebooks/group_model_comparison.ipynb)
 
 ---
 
-### **Project Title:**
-# Comparative Design, Implementation, and Evaluation of 6 Machine Learning Classifiers for User Movie Satisfaction Prediction on MovieLens 32M
+### 👥 Research Team & Individual Model Allocations
 
-**Academic Institution:** Faculty of Computing, Year 2 Semester 1 (2026)  
-**Module Code:** IT2011  
-**Group Identifier:** Group 08  
-
-#### **Group Members & Assigned Models:**
-1. **Kaweesha P M G S** (Member 1: Logistic Regression - Probabilistic Linear Classifier)
-2. **Divisekara A W D M D M B** (Member 2: Decision Tree Classifier - Axis-Aligned Partitioning)
-3. **Deshabhi R. G. S** (Member 3: Random Forest Classifier - Bagged Tree Ensemble)
-4. **Amadini G. G. A** (Member 4: Support Vector Machine - Maximum Margin Linear & RBF Kernels)
-5. **Hewage B H A S** (Member 5: K-Nearest Neighbors - Instance-Based Lazy Learning)
-6. **Perera D.A.A.N.S** (Member 6: Neural Network - Deep Multi-Layer Perceptron / MLP)
+| Member | Research Role | Classifier Paradigm | Deliverable Notebook |
+| :--- | :--- | :--- | :--- |
+| **Divisekara A W D M D M B** | **Project Architect & Lead** | **Member 2:** Decision Tree Classifier (Axis-Aligned Rule-Based Model) | [`Divisekara_Decision_Tree.ipynb`](notebooks/Divisekara_Decision_Tree.ipynb) |
+| **Kaweesha P M G S** | Core Contributor | **Member 1:** Logistic Regression (Probabilistic Linear Classifier) | [`Kaweesha_Logistic_Regression.ipynb`](notebooks/Kaweesha_Logistic_Regression.ipynb) |
+| **Deshabhi R. G. S** | Core Contributor | **Member 3:** Random Forest (Bagged Decision Tree Ensemble) | [`Deshabhi_Random_Forest.ipynb`](notebooks/Deshabhi_Random_Forest.ipynb) |
+| **Amadini G. G. A** | Core Contributor | **Member 4:** Support Vector Machine (Linear vs RBF Maximum Margin) | [`Amadini_Support_Vector_Machine.ipynb`](notebooks/Amadini_Support_Vector_Machine.ipynb) |
+| **Hewage B H A S** | Core Contributor | **Member 5:** K-Nearest Neighbors (Instance-Based Lazy Learner) | [`Hewage_K_Nearest_Neighbors.ipynb`](notebooks/Hewage_K_Nearest_Neighbors.ipynb) |
+| **Perera D.A.A.N.S** | Core Contributor | **Member 6:** Multi-Layer Perceptron (Deep Neural Network) | [`Perera_Neural_Network_MLP.ipynb`](notebooks/Perera_Neural_Network_MLP.ipynb) |
 
 ---
 
@@ -26,11 +28,13 @@
 In the modern digital streaming economy (exemplified by Netflix, Disney+, Amazon Prime Video, and YouTube), user retention, subscription lifetime value, and engagement depend critically on algorithmic discovery. Modern streaming catalogs span tens of thousands of media titles, creating severe **information overload** for consumers. When users spend excessive time browsing without finding compelling content, churn rates surge.
 
 To power recommendation feeds, streaming platforms must evaluate candidate items and predict which items have a high probability of user satisfaction. Formulating this challenge as a **Binary Classification Problem**:
+
 $$ y = \begin{cases} 1 & \text{if } \text{rating} \ge 4.0 \text{ (Highly Satisfied / Recommended)} \\ 0 & \text{if } \text{rating} < 4.0 \text{ (Neutral / Disliked)} \end{cases} $$
+
 allows the platform to rank and filter candidates before presenting the final carousel.
 
 ### 1.2 Multi-Paradigm Comparative Objective
-Rather than testing an arbitrary mix of incompatible tasks, Group 08 aligned all six team members on the exact same benchmark classification challenge on the MovieLens 32M dataset. This creates an apples-to-apples scientific comparison across six foundational AI/ML paradigms:
+Rather than testing an arbitrary mix of incompatible tasks, our research aligned all six team members on the exact same benchmark classification challenge on the MovieLens 32M dataset. This creates an apples-to-apples scientific comparison across six foundational AI/ML paradigms:
 1. **Linear Probabilistic Modeling:** Logistic Regression (Kaweesha)
 2. **Rule-Based Tree Partitioning:** Decision Tree (Divisekara)
 3. **Ensemble Bagging:** Random Forest (Deshabhi)
@@ -75,26 +79,26 @@ In strict adherence to Machine Learning best practices:
 - **Rating Skewness:** Mean rating was $3.54 \pm 1.04$. Users predominantly rate whole stars (3.0, 4.0, 5.0).
 - **Feature Correlation:** Bivariate kernel density estimation confirmed strong separability: `movie_mean_rating` ($r \approx 0.45$) and `user_mean_rating` ($r \approx 0.38$) provide powerful predictive signals for user satisfaction.
 
+| Visual Analysis | Insight Summary | Output Asset |
+| :--- | :--- | :--- |
+| **Genre Distribution** | Catalog is heavily weighted toward Drama, Comedy, and Action | [`01_genre_distribution.png`](results/eda_visualizations/01_genre_distribution.png) |
+| **Rating Spread** | Bimodal behavior with satisfaction threshold at 4.0 stars | [`02_rating_distribution.png`](results/eda_visualizations/02_rating_distribution.png) |
+| **PCA Clusters** | 2D projection reveals distinct user affinity groupings | [`03_kmeans_pca_clusters.png`](results/eda_visualizations/03_kmeans_pca_clusters.png) |
+
 ---
 
 ## 4. Model Design and Implementation
 
-Group 08 implemented six distinct machine learning algorithms covering all fundamental classification paradigms:
+We implemented six distinct machine learning algorithms covering all fundamental classification paradigms:
 
-```
-┌────────────────────────────────────────────────────────────────────────────────────────┐
-│                        GROUP 08 6-CLASSIFIER ML ARCHITECTURE                           │
-├─────────────────────────┬─────────────────────────┬────────────────────────────────────┤
-│ PARADIGM                │ INDIVIDUAL MODEL        │ ASSIGNED MEMBER                    │
-├─────────────────────────┼─────────────────────────┼────────────────────────────────────┤
-│ 1. Linear Probabilistic │ Logistic Regression     │ Kaweesha P M G S                 │
-│ 2. Rule-Based Tree      │ Decision Tree Classifier│ Divisekara A W D M D M B         │
-│ 3. Bagged Ensemble      │ Random Forest Classifier│ Deshabhi R. G. S                 │
-│ 4. Maximum Margin       │ Support Vector Machine  │ Amadini G. G. A                  │
-│ 5. Instance-Based       │ K-Nearest Neighbors     │ Hewage B H A S                   │
-│ 6. Deep Neural Network  │ Multi-Layer Perceptron  │ Perera D.A.A.N.S                 │
-└─────────────────────────┴─────────────────────────┴────────────────────────────────────┘
-```
+| Classifier Paradigm | Individual Model | Lead Specialist | Core Inductive Bias |
+| :--- | :--- | :--- | :--- |
+| **1. Linear Probabilistic** | Logistic Regression | Kaweesha P M G S | Hyperplane log-odds mapping with L2 shrinkage |
+| **2. Rule-Based Partitioning** | Decision Tree Classifier | Divisekara A W D M D M B | Recursive orthogonal split optimization (Gini impurity) |
+| **3. Bagged Ensemble** | Random Forest Classifier | Deshabhi R. G. S | Bootstrap aggregation + random feature subspace decorrelation |
+| **4. Maximum Margin** | Support Vector Machine (SVM) | Amadini G. G. A | Convex quadratic optimization of separating margin |
+| **5. Instance-Based Memory** | K-Nearest Neighbors (KNN) | Hewage B H A S | Distance-weighted local neighborhood voting |
+| **6. Deep Neural Representation**| Multi-Layer Perceptron (MLP) | Perera D.A.A.N.S | Non-linear hierarchical feature mapping via backpropagation |
 
 ### 4.1 Member 1 (Kaweesha P M G S): Logistic Regression
 - **Objective:** Establish a calibrated linear probabilistic benchmark.
@@ -104,6 +108,7 @@ Group 08 implemented six distinct machine learning algorithms covering all funda
   - *Variety A:* Weak regularization ($C = 100.0$).
   - *Variety B:* Tuned balanced L2 regularization ($C = 1.0$).
   - *Variety C:* Strong regularization ($C = 0.01$).
+- **Notebook:** [`Kaweesha_Logistic_Regression.ipynb`](notebooks/Kaweesha_Logistic_Regression.ipynb)
 
 ### 4.2 Member 2 (Divisekara A W D M D M B): Decision Tree Classifier
 - **Objective:** Construct white-box rule-based trees through recursive Gini impurity minimization:
@@ -112,6 +117,7 @@ Group 08 implemented six distinct machine learning algorithms covering all funda
   - *Variety A:* Shallow tree ($d = 4, \text{min\_samples\_split} = 20$).
   - *Variety B:* Tuned pruned tree ($d = 8, \text{min\_samples\_split} = 10$).
   - *Variety C:* Deep unpruned tree ($d = 16, \text{min\_samples\_split} = 2$).
+- **Notebook:** [`Divisekara_Decision_Tree.ipynb`](notebooks/Divisekara_Decision_Tree.ipynb)
 
 ### 4.3 Member 3 (Deshabhi R. G. S): Random Forest Classifier
 - **Objective:** Eliminate tree variance through Bootstrap Aggregation (Bagging) and random feature subspace splitting.
@@ -119,6 +125,7 @@ Group 08 implemented six distinct machine learning algorithms covering all funda
   - *Variety A:* Shallow ensemble ($n = 50, d = 6, \text{min\_samples\_split} = 20$).
   - *Variety B:* Tuned ensemble ($n = 100, d = 12, \text{min\_samples\_split} = 5$).
   - *Variety C:* Deep high-capacity ensemble ($n = 200, d = 20, \text{min\_samples\_split} = 2$).
+- **Notebook:** [`Deshabhi_Random_Forest.ipynb`](notebooks/Deshabhi_Random_Forest.ipynb)
 
 ### 4.4 Member 4 (Amadini G. G. A): Support Vector Machine (SVM)
 - **Objective:** Construct maximum-margin separating hyper-planes in Euclidean and Hilbert spaces.
@@ -126,6 +133,7 @@ Group 08 implemented six distinct machine learning algorithms covering all funda
   - *Variety A:* Linear SVM ($C = 1.0$).
   - *Variety B:* Non-linear RBF Kernel SVM ($C = 1.0, \gamma = \text{'scale'}$).
   - *Variety C:* Non-linear RBF Kernel SVM ($C = 5.0, \gamma = \text{'scale'}$).
+- **Notebook:** [`Amadini_Support_Vector_Machine.ipynb`](notebooks/Amadini_Support_Vector_Machine.ipynb)
 
 ### 4.5 Member 5 (Hewage B H A S): K-Nearest Neighbors (KNN)
 - **Objective:** Predict satisfaction using distance-weighted voting across local training neighborhoods:
@@ -134,6 +142,7 @@ Group 08 implemented six distinct machine learning algorithms covering all funda
   - *Variety A:* Small neighborhood ($k = 5$, uniform weights, Euclidean $L_2$).
   - *Variety B:* Tuned moderate neighborhood ($k = 15$, distance-weighted, Euclidean $L_2$).
   - *Variety C:* Large neighborhood ($k = 35$, distance-weighted, Manhattan $L_1$).
+- **Notebook:** [`Hewage_K_Nearest_Neighbors.ipynb`](notebooks/Hewage_K_Nearest_Neighbors.ipynb)
 
 ### 4.6 Member 6 (Perera D.A.A.N.S): Neural Network (Multi-Layer Perceptron / MLP)
 - **Objective:** Learn high-order non-linear representations using feed-forward backpropagation networks with ReLU activations.
@@ -141,6 +150,7 @@ Group 08 implemented six distinct machine learning algorithms covering all funda
   - *Variety A:* Single-layer architecture $(64,), \alpha = 0.01$.
   - *Variety B:* Two-layer tuned architecture $(128, 64), \alpha = 0.001$, Early Stopping.
   - *Variety C:* Three-layer deep architecture $(128, 64, 32), \alpha = 0.0001$.
+- **Notebook:** [`Perera_Neural_Network_MLP.ipynb`](notebooks/Perera_Neural_Network_MLP.ipynb)
 
 ---
 
@@ -149,19 +159,21 @@ Group 08 implemented six distinct machine learning algorithms covering all funda
 ### 5.1 Validation Protocol & Variance Metric Formulation
 All models were evaluated under identical **5-Fold Stratified Cross-Validation**. 
 To rigorously quantify model stability, we computed the **Unbiased Sample Variance ($s^2$)** across the $K=5$ validation folds with Bessel's correction ($N-1 = 4$ degrees of freedom):
+
 $$s^2 = \frac{1}{K-1} \sum_{k=1}^K (\text{F1}_k - \overline{\text{F1}})^2$$
+
 All reported error bars depict the **Sample Standard Deviation ($s = \sqrt{s^2}$)**.
 
 ### 5.2 Comprehensive 6-Model Master Performance Matrix
 
-| Member & Student | Model Paradigm | Optimum Variety | Mean Accuracy | Mean F1-Score | Fold Variance ($s^2$) | Fold Std Dev ($s$) | Mean ROC-AUC | Training Time (s) | Inference Latency (ms) |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Kaweesha P M G S** | Logistic Regression | Var B (Tuned $C=1.0$) | 0.7325 | **0.7084** | $2.15 \times 10^{-5}$ | $0.0046$ | 0.7850 | 0.45 s | 0.12 ms |
-| **Divisekara A W D M D M B**| Decision Tree | Var B (Pruned $d=8$) | 0.7360 | **0.7182** | $2.42 \times 10^{-5}$ | $0.0049$ | 0.7765 | 0.35 s | 0.15 ms |
+| Specialist Member | Model Paradigm | Optimum Variety | Mean Accuracy | Mean F1-Score | Fold Variance ($s^2$) | Fold Std Dev ($s$) | Mean ROC-AUC | Training Time (s) | Inference Latency (ms) |
+| :--- | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **Perera D.A.A.N.S** | Neural Network (MLP) | Var B ($128\times64$, Stop) | **0.7525** | **0.7394** | $1.62 \times 10^{-5}$ | $0.0040$ | **0.8225** | 5.20 s | 1.10 ms |
 | **Deshabhi R. G. S** | Random Forest | Var B ($n=100, d=12$) | 0.7510 | **0.7385** | $1.48 \times 10^{-5}$ | $0.0038$ | 0.8219 | 3.80 s | 2.90 ms |
-| **Amadini G. G. A** | Support Vector (SVM)| Var B (RBF, $C=1.0$) | 0.7410 | **0.7321** | $1.76 \times 10^{-5}$ | $0.0042$ | 0.8040 | 14.50 s | 8.40 ms |
-| **Hewage B H A S** | K-Nearest Neighbors | Var B ($k=15$, Dist) | 0.7345 | **0.7162** | $2.20 \times 10^{-5}$ | $0.0047$ | 0.7914 | 0.10 s | 11.20 ms |
-| **Perera D.A.A.N.S** | Neural Network (MLP)| Var B ($128\times64$, Stop) | 0.7525 | **0.7394** | $1.62 \times 10^{-5}$ | $0.0040$ | 0.8225 | 5.20 s | 1.10 ms |
+| **Amadini G. G. A** | Support Vector (SVM) | Var B (RBF, $C=1.0$) | 0.7410 | **0.7321** | $1.76 \times 10^{-5}$ | $0.0042$ | 0.8040 | 14.50 s | 8.40 ms |
+| **Divisekara A W D M D M B** | Decision Tree | Var B (Pruned $d=8$) | 0.7360 | **0.7182** | $2.42 \times 10^{-5}$ | $0.0049$ | 0.7765 | 0.35 s | **0.15 ms** |
+| **Hewage B H A S** | K-Nearest Neighbors | Var B ($k=15$, Dist) | 0.7345 | **0.7162** | $2.20 \times 10^{-5}$ | $0.0047$ | 0.7914 | **0.10 s** | 11.20 ms |
+| **Kaweesha P M G S** | Logistic Regression | Var B (Tuned $C=1.0$) | 0.7325 | **0.7084** | $2.15 \times 10^{-5}$ | $0.0046$ | 0.7850 | 0.45 s | **0.12 ms** |
 
 ### 5.3 Comparative Analysis & Operational Trade-offs
 1. **Predictive Champions:**
@@ -178,7 +190,7 @@ All reported error bars depict the **Sample Standard Deviation ($s = \sqrt{s^2}$
 Machine Learning algorithms deployed in entertainment streaming systems exert substantial influence over cultural visibility, economic monetization for creators, and user cognitive exposure.
 
 ### 6.1 Algorithmic Bias & The Popularity Loop
-- **The Rich-Get-Richer Phenonemon:** Classifiers trained predominantly on popularity metrics risk creating feedback loops that starve independent cinema.
+- **The Rich-Get-Richer Phenomenon:** Classifiers trained predominantly on popularity metrics risk creating feedback loops that starve independent cinema.
 - **Mitigation Strategy:** Adding genre parity constraints and $\epsilon$-greedy exploratory injection (10% exploration slots) guarantees exposure for long-tail films.
 
 ### 6.2 Echo Chambers & Privacy
@@ -188,7 +200,7 @@ Machine Learning algorithms deployed in entertainment streaming systems exert su
 
 ## 7. AI Tool Usage Declaration and Transparency
 
-In accordance with Faculty guidelines regarding transparent generative AI usage:
+In accordance with academic standards regarding transparent AI-assisted research and development:
 
 | Tool Name & Version | Supported Project Aspect | Extent of Use | Verification & Ownership Method |
 | :--- | :--- | :--- | :--- |
@@ -196,15 +208,15 @@ In accordance with Faculty guidelines regarding transparent generative AI usage:
 | **Google Colab CLI** | Remote runtime session management and environment configuration | Minimal | Checked authentication scopes, validated execution logs, and confirmed local fallback execution. |
 | **Python Scikit-Learn Docs** | API reference for GridSearchCV and cross-validation variance formulas | Moderate | Cross-referenced against textbook formulas (Bessel's correction sample variance). |
 
-The group takes 100% intellectual ownership of all models, architectural designs, code implementations, and visual outputs presented in this report and during the viva defense.
+The research team takes full intellectual ownership of all models, architectural designs, code implementations, and empirical benchmark findings presented in this repository.
 
 ---
 
 ## 8. Reflections and Lessons Learned
 
-1. **Trade-off between Interpretability and Predictive Power:** Simple models (Logistic Regression, Decision Trees) offer direct rule transparency and sub-millisecond scoring, whereas complex non-linear architectures (Deep MLP, Random Forest) gain 3% in F1-score at the expense of white-box explainability.
+1. **Trade-off between Interpretability and Predictive Power:** Simple models (Logistic Regression, Decision Trees) offer direct rule transparency and sub-millisecond scoring, whereas complex non-linear architectures (Deep MLP, Random Forest) gain ~3% in F1-score at the expense of white-box explainability.
 2. **Featurization Ordering:** A critical lesson was ensuring feature scaling transformers were strictly fit on training splits within cross-validation folds to eliminate data leakage.
-3. **Production Architecture Recommendation:** A two-tier architecture using Logistic Regression for rapid 5 ms candidate filtering followed by Deep MLP or Random Forest for top-10 personalized ranking achieves the optimal commercial balance.
+3. **Production Architecture Recommendation:** A two-tier architecture using Logistic Regression or Decision Trees for rapid candidate pre-filtering followed by Deep MLP or Random Forest for top-10 personalized ranking achieves the optimal commercial balance.
 
 ---
 

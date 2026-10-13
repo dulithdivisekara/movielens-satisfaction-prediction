@@ -128,7 +128,6 @@ To verify generalizability and prevent data leakage, all model evaluations adher
 ├── Group_08.pdf                      # Formatted academic submission report PDF
 ├── LICENSE                           # MIT License with GroupLens attribution
 ├── README.md                         # Comprehensive documentation & benchmark guide
-├── VIVA_PREPARATION_GUIDE.md         # Comprehensive viva defense cheat sheet, formulas & Q&A
 ├── requirements.txt                  # Strict Python dependency specifications
 ├── data/
 │   └── processed/                    # Ready-to-use benchmark datasets (Self-contained)
